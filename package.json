@@ -13,6 +13,9 @@
     "DrawerLayout.ios.js",
     "index.js"
   ],
+  "dependencies": {
+    "autobind-decorator": "^1.3.2",
+  },  
   "contributors": [
     {
       "name": "Marc Mendiola",
