@@ -1,0 +1,27 @@
+{
+  "name": "react-native-drawer-layout",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:iodine/react-native-drawer-layout.git"
+  },
+  "author": "Brent Vatne <brentvatne@gmail.com> (https://github.com/brentvatne)",
+  "contributors": [
+    {
+      "name": "Marc Mendiola",
+      "email": "marc@iodine.com"
+    }
+  ],
+  "keywords": [
+    "react",
+    "react-native",
+    "ios",
+    "android",
+    "drawer",
+    "layout",
+    "menu"
+  ],
+  "license": "MIT"
+}
