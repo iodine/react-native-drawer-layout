@@ -8,6 +8,11 @@
     "url": "git@github.com:iodine/react-native-drawer-layout.git"
   },
   "author": "Brent Vatne <brentvatne@gmail.com> (https://github.com/brentvatne)",
+  "files": [
+    "DrawerLayout.android.js",
+    "DrawerLayout.ios.js",
+    "index.js"
+  ],
   "contributors": [
     {
       "name": "Marc Mendiola",
