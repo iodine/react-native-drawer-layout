@@ -55,7 +55,6 @@ export default class DrawerLayout extends React.Component {
     });
 
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: this._shouldSetPanResponder,
       onMoveShouldSetPanResponder: this._shouldSetPanResponder,
       onPanResponderGrant: this._panResponderGrant,
       onPanResponderMove: this._panResponderMove,
@@ -166,14 +165,17 @@ export default class DrawerLayout extends React.Component {
         }
       }
     } else {
+      let overlayArea = DEVICE_WIDTH - this.props.drawerWidth;
+
       if (this._lastOpenValue === 1) {
-        if (dx > 2) {
+        if ((dx > 0 && (Math.abs(dx) > (Math.abs(dy) * 3))) || (moveX < overlayArea)) {
           this._isClosing = true;
           this._closingAnchorValue = this._getOpenValueForX(moveX);
           return true;
         }
       } else {
         if (moveX >= DEVICE_WIDTH - 35 && dx < 0) {
+          this._isClosing = false;
           return true;
         } else {
           return false;
@@ -222,11 +224,14 @@ export default class DrawerLayout extends React.Component {
        this.close();
       }
     } else {
-      /* TODO: update the logic here for right side */
-      if (moveX < THRESHOLD) {
+      if ((vx < 0 && moveX < THRESHOLD) || (vx <= -VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD) {
         this.open({velocity: -1 * vx});
-      } else {
+      } else if ((vx > 0 && moveX > THRESHOLD) || (vx > VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
         this.close({velocity: -1 * vx});
+      } else if (previouslyOpen) {
+       this.open();
+      } else {
+       this.close();
       }
     }
   }
