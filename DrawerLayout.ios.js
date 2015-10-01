@@ -116,12 +116,22 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
+  openDrawer() {
+      this.open();
+  }
+
+  @autobind
   open(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options}).start(() => {
       this.props.onDrawerOpen && this.props.onDrawerOpen();
       this._emitStateChanged(IDLE);
     });
+  }
+
+  @autobind
+  closeDrawer() {
+      this.close();
   }
 
   @autobind
