@@ -116,12 +116,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  openDrawer() {
-      this.open();
-  }
-
-  @autobind
-  open(options={}) {
+  openDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options}).start(() => {
       this.props.onDrawerOpen && this.props.onDrawerOpen();
@@ -130,12 +125,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  closeDrawer() {
-      this.close();
-  }
-
-  @autobind
-  close(options={}) {
+  closeDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 0, bounciness: 0, restSpeedThreshold: 1, ...options}).start(() => {
       this.props.onDrawerClose && this.props.onDrawerClose();
