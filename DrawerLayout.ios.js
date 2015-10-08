@@ -116,7 +116,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  open(options={}) {
+  openDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options}).start(() => {
       this.props.onDrawerOpen && this.props.onDrawerOpen();
@@ -125,7 +125,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  close(options={}) {
+  closeDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 0, bounciness: 0, restSpeedThreshold: 1, ...options}).start(() => {
       this.props.onDrawerClose && this.props.onDrawerClose();
@@ -215,23 +215,23 @@ export default class DrawerLayout extends React.Component {
 
     if (drawerPosition === 'left') {
       if ((vx > 0 && moveX > THRESHOLD) || (vx >= VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX > THRESHOLD) {
-        this.open({velocity: vx});
+        this.openDrawer({velocity: vx});
       } else if ((vx < 0 && moveX < THRESHOLD) || (vx < -VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
-        this.close({velocity: vx});
+        this.closeDrawer({velocity: vx});
       } else if (previouslyOpen) {
-       this.open();
+       this.openDrawer();
       } else {
-       this.close();
+       this.closeDrawer();
       }
     } else {
       if ((vx < 0 && moveX < THRESHOLD) || (vx <= -VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD) {
-        this.open({velocity: -1 * vx});
+        this.openDrawer({velocity: -1 * vx});
       } else if ((vx > 0 && moveX > THRESHOLD) || (vx > VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
-        this.close({velocity: -1 * vx});
+        this.closeDrawer({velocity: -1 * vx});
       } else if (previouslyOpen) {
-       this.open();
+       this.openDrawer();
       } else {
-       this.close();
+       this.closeDrawer();
       }
     }
   }
