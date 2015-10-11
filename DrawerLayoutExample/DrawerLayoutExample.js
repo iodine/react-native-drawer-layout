@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var { View, Text, StyleSheet } = React;
+var { View, Text, StyleSheet, TouchableHighlight } = React;
 var DrawerLayout = require('react-native-drawer-layout');
 
 var DrawerLayoutExample = React.createClass({
@@ -14,6 +14,9 @@ var DrawerLayoutExample = React.createClass({
     var navigationView = (
       <View style={[styles.container, {backgroundColor: '#fff'}]}>
         <Text>Hello there!</Text>
+        <TouchableHighlight onPress={() => this.drawer.closeDrawer()}>
+          <Text>Close drawer</Text>
+        </TouchableHighlight>
       </View>
     );
 
@@ -22,11 +25,15 @@ var DrawerLayoutExample = React.createClass({
         onDrawerSlide={(e) => this.setState({drawerSlideOutput: JSON.stringify(e.nativeEvent)})}
         onDrawerStateChanged={(e) => this.setState({drawerStateChangedOutput: JSON.stringify(e)})}
         drawerWidth={300}
+        ref={(drawer) => { return this.drawer = drawer  }}
         renderNavigationView={() => navigationView}>
         <View style={styles.container}>
           <Text style={styles.welcome}>Content!</Text>
           <Text>{this.state.drawerStateChangedOutput}</Text>
           <Text>{this.state.drawerSlideOutput}</Text>
+          <TouchableHighlight onPress={() => this.drawer.openDrawer()}>
+            <Text>Open drawer</Text>
+          </TouchableHighlight>
         </View>
       </DrawerLayout>
     );
