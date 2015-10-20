@@ -107,7 +107,7 @@ export default class DrawerLayout extends React.Component {
           {this.props.children}
         </Animated.View>
 
-        <TouchableWithoutFeedback onPress={this._onOverlayPress}>
+        <TouchableWithoutFeedback onPress={this._onOverlayClick}>
           <Animated.View style={[styles.overlay, animatedOverlayStyles]} />
         </TouchableWithoutFeedback>
         <Animated.View style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
@@ -118,7 +118,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  _onOverlayPress() {
+  _onOverlayClick() {
     this.closeDrawer();
   }
 
