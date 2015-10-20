@@ -64,6 +64,10 @@ export default class DrawerLayout extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    StatusBarIOS.setHidden(false, 'fade');
+  }
+
   render() {
     let { openValue } = this.state;
     let { drawerPosition, drawerWidth } = this.props;
