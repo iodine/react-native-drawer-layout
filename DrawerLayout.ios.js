@@ -1,5 +1,5 @@
 import React from 'react-native';
-import { Animated, PanResponder, PropTypes, StyleSheet, StatusBarIOS, View, Dimensions } from 'react-native';
+import { Animated, PanResponder, PropTypes, StyleSheet, StatusBarIOS, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import autobind from 'autobind-decorator';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
@@ -64,6 +64,10 @@ export default class DrawerLayout extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    StatusBarIOS.setHidden(false, 'fade');
+  }
+
   render() {
     let { openValue } = this.state;
     let { drawerPosition, drawerWidth } = this.props;
@@ -103,12 +107,19 @@ export default class DrawerLayout extends React.Component {
           {this.props.children}
         </Animated.View>
 
-        <Animated.View style={[styles.overlay, animatedOverlayStyles]} />
+        <TouchableWithoutFeedback onPress={this._onOverlayClick}>
+          <Animated.View style={[styles.overlay, animatedOverlayStyles]} />
+        </TouchableWithoutFeedback>
         <Animated.View style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
           {this.props.renderNavigationView()}
         </Animated.View>
       </View>
     )
+  }
+
+  @autobind
+  _onOverlayClick() {
+    this.closeDrawer();
   }
 
   _emitStateChanged(newState) {
