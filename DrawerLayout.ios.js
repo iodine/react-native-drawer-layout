@@ -108,7 +108,9 @@ export default class DrawerLayout extends React.Component {
         </Animated.View>
 
         <TouchableWithoutFeedback onPress={this._onOverlayClick}>
-          <Animated.View style={[styles.overlay, animatedOverlayStyles]} />
+          <Animated.View
+            style={[styles.overlay, animatedOverlayStyles]}
+            pointerEvents="none" />
         </TouchableWithoutFeedback>
         <Animated.View style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
           {this.props.renderNavigationView()}
