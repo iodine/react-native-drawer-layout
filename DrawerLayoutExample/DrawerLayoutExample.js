@@ -1,7 +1,7 @@
 'use strict';
 
 var React = require('react-native');
-var { View, Text, StyleSheet, TouchableHighlight } = React;
+var { View, Text, StyleSheet, TouchableHighlight, TextInput } = React;
 var DrawerLayout = require('react-native-drawer-layout');
 
 var DrawerLayoutExample = React.createClass({
@@ -26,6 +26,7 @@ var DrawerLayoutExample = React.createClass({
         onDrawerStateChanged={(e) => this.setState({drawerStateChangedOutput: JSON.stringify(e)})}
         drawerWidth={300}
         ref={(drawer) => { return this.drawer = drawer  }}
+        keyboardDismissMode="on-drag"
         renderNavigationView={() => navigationView}>
         <View style={styles.container}>
           <Text style={styles.welcome}>Content!</Text>
@@ -34,6 +35,7 @@ var DrawerLayoutExample = React.createClass({
           <TouchableHighlight onPress={() => this.drawer.openDrawer()}>
             <Text>Open drawer</Text>
           </TouchableHighlight>
+          <TextInput style={styles.inputField} />
         </View>
       </DrawerLayout>
     );
@@ -50,6 +52,10 @@ var styles = StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+  },
+  inputField: {
+    backgroundColor: '#F2F2F2',
+    height: 40,
   },
 });
 
