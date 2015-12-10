@@ -10,14 +10,9 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
-export default class DrawerLayout extends React.Component {
+module.exports = React.createClass({
 
-  static defaultProps = {
-    drawerWidth: 0,
-    drawerPosition: 'left',
-  }
-
-  static propTypes = {
+  propTypes: {
     drawerWidth: PropTypes.number.isRequired,
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
     renderNavigationView: PropTypes.func.isRequired,
@@ -30,15 +25,20 @@ export default class DrawerLayout extends React.Component {
 
     /* Not implemented */
     keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
-  }
+  },
 
-  constructor(props, context) {
-    super(props, context);
+  getDefaultProps() {
+    return {
+      drawerWidth: 0,
+      drawerPosition: 'left',
+    };
+  },
 
-    this.state = {
+  getInitialState() {
+    return {
       openValue: new Animated.Value(0),
-    }
-  }
+    };
+  },
 
   componentWillMount() {
     let { openValue } = this.state;
@@ -62,11 +62,11 @@ export default class DrawerLayout extends React.Component {
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: (evt, gestureState) => { }
     });
-  }
+  },
 
   componentWillUnmount() {
     StatusBarIOS.setHidden(false, 'fade');
-  }
+  },
 
   render() {
     let { openValue } = this.state;
@@ -117,46 +117,40 @@ export default class DrawerLayout extends React.Component {
         </Animated.View>
       </View>
     )
-  }
+  },
 
-  @autobind
   _onOverlayClick() {
     this.closeDrawer();
-  }
+  },
 
   _emitStateChanged(newState) {
     this.props.onDrawerStateChanged && this.props.onDrawerStateChanged(newState);
-  }
+  },
 
-  @autobind
   openDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options}).start(() => {
       this.props.onDrawerOpen && this.props.onDrawerOpen();
       this._emitStateChanged(IDLE);
     });
-  }
+  },
 
-  @autobind
   closeDrawer(options={}) {
     this._emitStateChanged(SETTLING);
     Animated.spring(this.state.openValue, {toValue: 0, bounciness: 0, restSpeedThreshold: 1, ...options}).start(() => {
       this.props.onDrawerClose && this.props.onDrawerClose();
       this._emitStateChanged(IDLE);
     });
-  }
+  },
 
-  @autobind
   _handleDrawerOpen() {
     this.props.onDrawerOpen && this.props.onDrawerOpen();
-  }
+  },
 
-  @autobind
   _handleDrawerClose() {
     this.props.onDrawerClose && this.props.onDrawerClose();
-  }
+  },
 
-  @autobind
   _shouldSetPanResponder(e, {moveX, dx, dy}) {
     let { drawerPosition } = this.props;
 
@@ -195,14 +189,12 @@ export default class DrawerLayout extends React.Component {
         }
       }
     }
-  }
+  },
 
-  @autobind
   _panResponderGrant() {
     this._emitStateChanged(DRAGGING);
-  }
+  },
 
-  @autobind
   _panResponderMove(e, {moveX}) {
     let openValue = this._getOpenValueForX(moveX);
 
@@ -217,9 +209,8 @@ export default class DrawerLayout extends React.Component {
     }
 
     this.state.openValue.setValue(openValue);
-  }
+  },
 
-  @autobind
   _panResponderRelease(e, {moveX, vx}) {
     let { drawerPosition } = this.props;
     let { openValue } = this.state;
@@ -247,7 +238,7 @@ export default class DrawerLayout extends React.Component {
        this.closeDrawer();
       }
     }
-  }
+  },
 
   _getOpenValueForX(x) {
     let { drawerPosition, drawerWidth } = this.props;
@@ -258,16 +249,17 @@ export default class DrawerLayout extends React.Component {
       return (DEVICE_WIDTH - x) / drawerWidth;
     }
   }
-}
+});
+
 
 let styles = StyleSheet.create({
   drawer: {
     position: 'absolute',
     top: 0,
-    bottom: 0,
+    bottom: 0
   },
   main: {
-    flex: 1,
+    flex: 1
   },
   overlay: {
     backgroundColor: '#000',
@@ -275,6 +267,6 @@ let styles = StyleSheet.create({
     top: 0,
     left: 0,
     bottom: 0,
-    right: 0,
-  },
+    right: 0
+  }
 });
