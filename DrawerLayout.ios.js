@@ -1,6 +1,5 @@
 import React from 'react-native';
 import { Animated, PanResponder, PropTypes, StyleSheet, StatusBarIOS, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
-import autobind from 'autobind-decorator';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
