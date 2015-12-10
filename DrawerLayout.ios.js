@@ -9,7 +9,7 @@ const IDLE = 'Idle';
 const DRAGGING = 'Dragging';
 const SETTLING = 'Settling';
 
-module.exports = React.createClass({
+const DrawerLayout = React.createClass({
 
   propTypes: {
     drawerWidth: PropTypes.number.isRequired,
@@ -250,6 +250,12 @@ module.exports = React.createClass({
   }
 });
 
+DrawerLayout.positions = {
+  Left: 'left',
+  Right: 'right'
+};
+
+module.exports = DrawerLayout;
 
 let styles = StyleSheet.create({
   drawer: {
