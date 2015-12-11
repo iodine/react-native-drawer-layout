@@ -1,5 +1,5 @@
 import React from 'react-native';
-import { Animated, PanResponder, PropTypes, StyleSheet, StatusBarIOS, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
+import { Animated, PanResponder, PropTypes, StyleSheet, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -43,12 +43,6 @@ const DrawerLayout = React.createClass({
     let { openValue } = this.state;
 
     openValue.addListener(({value}) => {
-      if (value >= 0.05) {
-        StatusBarIOS.setHidden(true, 'fade');
-      } else {
-        StatusBarIOS.setHidden(false, 'fade');
-      }
-
       this._lastOpenValue = value;
       this.props.onDrawerSlide && this.props.onDrawerSlide({nativeEvent: {offset: value}});
     });
@@ -61,10 +55,6 @@ const DrawerLayout = React.createClass({
       onPanResponderRelease: this._panResponderRelease,
       onPanResponderTerminate: (evt, gestureState) => { }
     });
-  },
-
-  componentWillUnmount() {
-    StatusBarIOS.setHidden(false, 'fade');
   },
 
   render() {
