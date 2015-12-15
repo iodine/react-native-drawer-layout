@@ -19,3 +19,11 @@ To use this component, you will need to enable the following Babel options:
 ## Demo
 
 ![](https://raw.githubusercontent.com/iodine/react-native-drawer-layout/master/example.gif)
+
+
+## Release Notes
+
+### 0.3
+
+#### Breaking changes:
+- The StatusBar is no longer dimmed by sliding the drawer layout automatically. To avoid this change you may use [StatusBarIOS.setHidden](https://facebook.github.io/react-native/docs/statusbarios.html#sethidden) in the [onDrawerSlide](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#ondrawerslide) callback.
