@@ -44,12 +44,6 @@ export default class DrawerLayout extends React.Component {
     let { openValue } = this.state;
 
     openValue.addListener(({value}) => {
-      if (value >= 0.05) {
-        StatusBarIOS.setHidden(true, 'fade');
-      } else {
-        StatusBarIOS.setHidden(false, 'fade');
-      }
-
       if (this.props.keyboardDismissMode === 'on-drag') {
         dismissKeyboard();
       }
