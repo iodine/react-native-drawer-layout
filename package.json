@@ -58,8 +58,10 @@
     "menu"
   ],
   "license": "MIT",
+  "dependencies": {
+    "autobind-decorator": "^1.3.2"
+  },
   "devDependencies": {
-    "autobind-decorator": "^1.3.2",
     "babel": "^5.8.34"
   }
 }
