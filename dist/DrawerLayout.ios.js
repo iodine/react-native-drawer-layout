@@ -146,8 +146,7 @@ var DrawerLayout = (function (_React$Component) {
           _reactNative.TouchableWithoutFeedback,
           { onPress: this._onOverlayClick },
           _reactNative2.default.createElement(_reactNative.Animated.View, {
-            style: [styles.overlay, animatedOverlayStyles],
-            pointerEvents: 'none' })
+            style: [styles.overlay, animatedOverlayStyles] })
         ),
         _reactNative2.default.createElement(
           _reactNative.Animated.View,
@@ -159,7 +158,8 @@ var DrawerLayout = (function (_React$Component) {
   }, {
     key: '_onOverlayClick',
     decorators: [_autobindDecorator2.default],
-    value: function _onOverlayClick() {
+    value: function _onOverlayClick(e) {
+      e.stopPropagation();
       this.closeDrawer();
     }
   }, {
