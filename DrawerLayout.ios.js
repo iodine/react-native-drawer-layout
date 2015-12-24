@@ -18,6 +18,11 @@ export default class DrawerLayout extends React.Component {
     drawerPosition: 'left',
   }
 
+  static positions = {
+    Left: 'left',
+    Right: 'right',
+  }
+
   static propTypes = {
     drawerWidth: PropTypes.number.isRequired,
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,

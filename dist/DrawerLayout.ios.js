@@ -24,6 +24,10 @@ var _autobindDecorator = require('autobind-decorator');
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
+var _dismissKeyboard = require('dismissKeyboard');
+
+var _dismissKeyboard2 = _interopRequireDefault(_dismissKeyboard);
+
 var DEVICE_WIDTH = parseFloat(_reactNative.Dimensions.get('window').width);
 var THRESHOLD = DEVICE_WIDTH / 2;
 var VX_MAX = 0.1;
@@ -43,6 +47,13 @@ var DrawerLayout = (function (_React$Component) {
     },
     enumerable: true
   }, {
+    key: 'positions',
+    value: {
+      Left: 'left',
+      Right: 'right'
+    },
+    enumerable: true
+  }, {
     key: 'propTypes',
     value: {
       drawerWidth: _reactNative.PropTypes.number.isRequired,
@@ -55,7 +66,6 @@ var DrawerLayout = (function (_React$Component) {
       onDrawerOpen: _reactNative.PropTypes.func,
       onDrawerClose: _reactNative.PropTypes.func,
 
-      /* Not implemented */
       keyboardDismissMode: _reactNative.PropTypes.oneOf(['none', 'on-drag'])
     },
     enumerable: true
@@ -80,6 +90,10 @@ var DrawerLayout = (function (_React$Component) {
 
       openValue.addListener(function (_ref) {
         var value = _ref.value;
+
+        if (_this.props.keyboardDismissMode === 'on-drag') {
+          (0, _dismissKeyboard2.default)();
+        }
 
         _this._lastOpenValue = value;
         _this.props.onDrawerSlide && _this.props.onDrawerSlide({ nativeEvent: { offset: value } });
