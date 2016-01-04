@@ -24,9 +24,9 @@ var _autobindDecorator = require('autobind-decorator');
 
 var _autobindDecorator2 = _interopRequireDefault(_autobindDecorator);
 
-var _dismissKeyboard = require('dismissKeyboard');
+var _reactNativeLibrariesUtilitiesDismissKeyboard = require('../../react-native/Libraries/Utilities/dismissKeyboard');
 
-var _dismissKeyboard2 = _interopRequireDefault(_dismissKeyboard);
+var _reactNativeLibrariesUtilitiesDismissKeyboard2 = _interopRequireDefault(_reactNativeLibrariesUtilitiesDismissKeyboard);
 
 var DEVICE_WIDTH = parseFloat(_reactNative.Dimensions.get('window').width);
 var THRESHOLD = DEVICE_WIDTH / 2;
@@ -92,7 +92,7 @@ var DrawerLayout = (function (_React$Component) {
         var value = _ref.value;
 
         if (_this.props.keyboardDismissMode === 'on-drag') {
-          (0, _dismissKeyboard2.default)();
+          (0, _reactNativeLibrariesUtilitiesDismissKeyboard2.default)();
         }
 
         _this._lastOpenValue = value;
