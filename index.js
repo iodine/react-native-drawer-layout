@@ -1,5 +1,5 @@
-var React = require('react-native');
-var { Platform } = React;
+const React = require('react-native');
+const { Platform } = React;
 
 if (Platform.OS === 'android') {
   module.exports = require('./DrawerLayout.android');
