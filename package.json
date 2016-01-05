@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "babel": "babel *.js --out-dir dist --whitelist es6.modules,es6.arrowFunctions,es6.blockScoping,es6.classes,es6.destructuring,es6.parameters,es6.properties.computed,es6.properties.shorthand,es6.spread,es6.templateLiterals,es6.constants,es7.trailingFunctionCommas,es7.objectRestSpread,react,es7.classProperties,es7.asyncFunctions,es7.decorators",
+    "babel": "babel *.js --out-dir dist",
     "build": "npm run-script clear && npm run-script babel",
     "clear": "rm -rf dist/ && mkdir dist/",
     "prepublish": "npm run build",
