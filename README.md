@@ -19,3 +19,7 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 
 #### Breaking changes:
 - The StatusBar is no longer dimmed by sliding the drawer layout automatically. To avoid this change you may use [StatusBarIOS.setHidden](https://facebook.github.io/react-native/docs/statusbarios.html#sethidden) in the [onDrawerSlide](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#ondrawerslide) callback.
+
+## Contribution
+
+Please make sure to run the tests before proposing a PR by running `npm test`.

@@ -24,17 +24,15 @@ export default class DrawerLayout extends React.Component {
   }
 
   static propTypes = {
-    drawerWidth: PropTypes.number.isRequired,
+    children: React.PropTypes.node,
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
-    renderNavigationView: PropTypes.func.isRequired,
-
+    drawerWidth: PropTypes.number.isRequired,
+    keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
+    onDrawerClose: PropTypes.func,
+    onDrawerOpen: PropTypes.func,
     onDrawerSlide: PropTypes.func,
     onDrawerStateChanged: PropTypes.func,
-
-    onDrawerOpen: PropTypes.func,
-    onDrawerClose: PropTypes.func,
-
-    keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
+    renderNavigationView: PropTypes.func.isRequired,
   }
 
   constructor(props, context) {
@@ -42,35 +40,37 @@ export default class DrawerLayout extends React.Component {
 
     this.state = {
       openValue: new Animated.Value(0),
-    }
+    };
   }
 
   componentWillMount() {
-    let { openValue } = this.state;
+    const { openValue } = this.state;
 
-    openValue.addListener(({value}) => {
+    openValue.addListener(({ value }) => {
       if (this.props.keyboardDismissMode === 'on-drag') {
         dismissKeyboard();
       }
 
       this._lastOpenValue = value;
-      this.props.onDrawerSlide && this.props.onDrawerSlide({nativeEvent: {offset: value}});
+      if (this.props.onDrawerSlide) {
+        this.props.onDrawerSlide({ nativeEvent: { offset: value } });
+      }
     });
 
     this._panResponder = PanResponder.create({
       onMoveShouldSetPanResponder: this._shouldSetPanResponder,
       onPanResponderGrant: this._panResponderGrant,
       onPanResponderMove: this._panResponderMove,
-      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderTerminationRequest: () => true,
       onPanResponderRelease: this._panResponderRelease,
-      onPanResponderTerminate: (evt, gestureState) => { }
+      onPanResponderTerminate: () => { },
     });
   }
 
   render() {
-    let { openValue } = this.state;
-    let { drawerPosition, drawerWidth } = this.props;
-    let dynamicDrawerStyles = {};
+    const { openValue } = this.state;
+    const { drawerPosition, drawerWidth } = this.props;
+    const dynamicDrawerStyles = {};
     dynamicDrawerStyles[drawerPosition] = 0;
     dynamicDrawerStyles.width = drawerWidth;
 
@@ -83,25 +83,23 @@ export default class DrawerLayout extends React.Component {
       outputRange = [drawerWidth, 0];
     }
 
-    let drawerTranslateX = openValue.interpolate({
+    const drawerTranslateX = openValue.interpolate({
       inputRange: [0, 1],
       outputRange,
       extrapolate: 'clamp',
     });
-    let animatedDrawerStyles = {transform: [{translateX: drawerTranslateX}]};
+    const animatedDrawerStyles = { transform: [{ translateX: drawerTranslateX }] };
 
     /* Overlay styles */
-    let opacityOutputRange;
-
-    let overlayOpacity = openValue.interpolate({
+    const overlayOpacity = openValue.interpolate({
       inputRange: [0, 1],
       outputRange: [0, 0.7],
       extrapolate: 'clamp',
     });
-    let animatedOverlayStyles = {opacity: overlayOpacity};
+    const animatedOverlayStyles = { opacity: overlayOpacity };
 
     return (
-      <View style={{flex: 1, backgroundColor: 'transparent'}} {...this._panResponder.panHandlers}>
+      <View style={{ flex: 1, backgroundColor: 'transparent' }} {...this._panResponder.panHandlers}>
         <Animated.View style={styles.main}>
           {this.props.children}
         </Animated.View>
@@ -114,7 +112,7 @@ export default class DrawerLayout extends React.Component {
           {this.props.renderNavigationView()}
         </Animated.View>
       </View>
-    )
+    );
   }
 
   @autobind
@@ -124,43 +122,53 @@ export default class DrawerLayout extends React.Component {
   }
 
   _emitStateChanged(newState) {
-    this.props.onDrawerStateChanged && this.props.onDrawerStateChanged(newState);
+    if (this.props.onDrawerStateChanged) {
+      this.props.onDrawerStateChanged(newState);
+    }
   }
 
   @autobind
-  openDrawer(options={}) {
+  openDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
-    Animated.spring(this.state.openValue, {toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options}).start(() => {
-      this.props.onDrawerOpen && this.props.onDrawerOpen();
+    Animated.spring(this.state.openValue, { toValue: 1, bounciness: 0, restSpeedThreshold: 0.1, ...options }).start(() => {
+      if (this.props.onDrawerOpen) {
+        this.props.onDrawerOpen();
+      }
       this._emitStateChanged(IDLE);
     });
   }
 
   @autobind
-  closeDrawer(options={}) {
+  closeDrawer(options = {}) {
     this._emitStateChanged(SETTLING);
-    Animated.spring(this.state.openValue, {toValue: 0, bounciness: 0, restSpeedThreshold: 1, ...options}).start(() => {
-      this.props.onDrawerClose && this.props.onDrawerClose();
+    Animated.spring(this.state.openValue, { toValue: 0, bounciness: 0, restSpeedThreshold: 1, ...options }).start(() => {
+      if (this.props.onDrawerClose) {
+        this.props.onDrawerClose();
+      }
       this._emitStateChanged(IDLE);
     });
   }
 
   @autobind
   _handleDrawerOpen() {
-    this.props.onDrawerOpen && this.props.onDrawerOpen();
+    if (this.props.onDrawerOpen) {
+      this.props.onDrawerOpen();
+    }
   }
 
   @autobind
   _handleDrawerClose() {
-    this.props.onDrawerClose && this.props.onDrawerClose();
+    if (this.props.onDrawerClose) {
+      this.props.onDrawerClose();
+    }
   }
 
   @autobind
-  _shouldSetPanResponder(e, {moveX, dx, dy}) {
-    let { drawerPosition } = this.props;
+  _shouldSetPanResponder(e, { moveX, dx, dy }) {
+    const { drawerPosition } = this.props;
 
     if (drawerPosition === 'left') {
-      let overlayArea = DEVICE_WIDTH - (DEVICE_WIDTH - this.props.drawerWidth);
+      const overlayArea = DEVICE_WIDTH - (DEVICE_WIDTH - this.props.drawerWidth);
 
       if (this._lastOpenValue === 1) {
         if ((dx < 0 && (Math.abs(dx) > (Math.abs(dy) * 3))) || (moveX > overlayArea)) {
@@ -172,12 +180,12 @@ export default class DrawerLayout extends React.Component {
         if (moveX <= 35 && dx > 0) {
           this._isClosing = false;
           return true;
-        } else {
-          return false;
         }
+
+        return false;
       }
     } else {
-      let overlayArea = DEVICE_WIDTH - this.props.drawerWidth;
+      const overlayArea = DEVICE_WIDTH - this.props.drawerWidth;
 
       if (this._lastOpenValue === 1) {
         if ((dx > 0 && (Math.abs(dx) > (Math.abs(dy) * 3))) || (moveX < overlayArea)) {
@@ -189,9 +197,9 @@ export default class DrawerLayout extends React.Component {
         if (moveX >= DEVICE_WIDTH - 35 && dx < 0) {
           this._isClosing = false;
           return true;
-        } else {
-          return false;
         }
+
+        return false;
       }
     }
   }
@@ -202,7 +210,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  _panResponderMove(e, {moveX}) {
+  _panResponderMove(e, { moveX }) {
     let openValue = this._getOpenValueForX(moveX);
 
     if (this._isClosing) {
@@ -219,37 +227,38 @@ export default class DrawerLayout extends React.Component {
   }
 
   @autobind
-  _panResponderRelease(e, {moveX, vx}) {
-    let { drawerPosition } = this.props;
-    let { openValue } = this.state;
-    let previouslyOpen = this._isClosing;
-    let isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
+  _panResponderRelease(e, { moveX, vx }) {
+    const { drawerPosition } = this.props;
+    const previouslyOpen = this._isClosing;
+    const isWithinVelocityThreshold = vx < VX_MAX && vx > -VX_MAX;
 
     if (drawerPosition === 'left') {
       if ((vx > 0 && moveX > THRESHOLD) || (vx >= VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX > THRESHOLD) {
-        this.openDrawer({velocity: vx});
+        this.openDrawer({ velocity: vx });
       } else if ((vx < 0 && moveX < THRESHOLD) || (vx < -VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
-        this.closeDrawer({velocity: vx});
+        this.closeDrawer({ velocity: vx });
       } else if (previouslyOpen) {
-       this.openDrawer();
+        this.openDrawer();
       } else {
-       this.closeDrawer();
+        this.closeDrawer();
       }
-    } else {
+    }
+
+    if (drawerPosition === 'right') {
       if ((vx < 0 && moveX < THRESHOLD) || (vx <= -VX_MAX) || isWithinVelocityThreshold && previouslyOpen && moveX < THRESHOLD) {
-        this.openDrawer({velocity: -1 * vx});
+        this.openDrawer({ velocity: -1 * vx });
       } else if ((vx > 0 && moveX > THRESHOLD) || (vx > VX_MAX) || isWithinVelocityThreshold && !previouslyOpen) {
-        this.closeDrawer({velocity: -1 * vx});
+        this.closeDrawer({ velocity: -1 * vx });
       } else if (previouslyOpen) {
-       this.openDrawer();
+        this.openDrawer();
       } else {
-       this.closeDrawer();
+        this.closeDrawer();
       }
     }
   }
 
   _getOpenValueForX(x) {
-    let { drawerPosition, drawerWidth } = this.props;
+    const { drawerPosition, drawerWidth } = this.props;
 
     if (drawerPosition === 'left') {
       return x / drawerWidth;
@@ -259,7 +268,7 @@ export default class DrawerLayout extends React.Component {
   }
 }
 
-let styles = StyleSheet.create({
+const styles = StyleSheet.create({
   drawer: {
     position: 'absolute',
     top: 0,
