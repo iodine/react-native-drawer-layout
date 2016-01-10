@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "babel": "babel *.js --out-dir dist",
+    "babel": "babel src --out-dir dist",
     "build": "npm run-script clear && npm run-script babel",
     "clear": "rm -rf dist/ && mkdir dist/",
     "prepublish": "npm run build",
@@ -93,14 +93,16 @@
     "react-native-dismiss-keyboard": "0.0.2"
   },
   "devDependencies": {
-    "babel": "^5.8.34",
+    "babel-cli": "^6.0.0",
     "babel-eslint": "^5.0.0-beta6",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "eslint": "^1.10.3",
     "eslint-config-xo": "^0.9.1",
     "eslint-plugin-babel": "^3.0.0",
     "eslint-plugin-no-empty-blocks": "0.0.2",
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-react": "^3.13.1",
+    "react-native": "^0.17.0",
     "xo": "^0.12.1"
   }
 }
