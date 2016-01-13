@@ -1,0 +1,14 @@
+machine:
+  node:
+    version: v4.2.1
+
+dependencies:
+  pre:
+    - npm install
+
+  cache_directories:
+    - node_modules
+
+test:
+  override:
+     - npm test

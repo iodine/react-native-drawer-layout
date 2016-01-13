@@ -16,12 +16,12 @@ export default class DrawerLayout extends React.Component {
   static defaultProps = {
     drawerWidth: 0,
     drawerPosition: 'left',
-  }
+  };
 
   static positions = {
     Left: 'left',
     Right: 'right',
-  }
+  };
 
   static propTypes = {
     children: React.PropTypes.node,
@@ -33,7 +33,7 @@ export default class DrawerLayout extends React.Component {
     onDrawerSlide: PropTypes.func,
     onDrawerStateChanged: PropTypes.func,
     renderNavigationView: PropTypes.func.isRequired,
-  }
+  };
 
   constructor(props, context) {
     super(props, context);
