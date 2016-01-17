@@ -89,6 +89,7 @@ export default class DrawerLayout extends React.Component {
       extrapolate: 'clamp',
     });
     const animatedDrawerStyles = { transform: [{ translateX: drawerTranslateX }] };
+    const drawerShown = openValue > 0;
 
     /* Overlay styles */
     const overlayOpacity = openValue.interpolate({
@@ -104,10 +105,12 @@ export default class DrawerLayout extends React.Component {
           {this.props.children}
         </Animated.View>
 
-        <TouchableWithoutFeedback onPress={this._onOverlayClick}>
-          <Animated.View
-            style={[styles.overlay, animatedOverlayStyles]} />
-        </TouchableWithoutFeedback>
+        {drawerShown &&
+          <TouchableWithoutFeedback onPress={this._onOverlayClick}>
+            <Animated.View
+              style={[styles.overlay, animatedOverlayStyles]} />
+          </TouchableWithoutFeedback>
+        }
         <Animated.View style={[styles.drawer, dynamicDrawerStyles, animatedDrawerStyles]}>
           {this.props.renderNavigationView()}
         </Animated.View>
