@@ -1,7 +1,17 @@
 import React from 'react-native';
-import { Animated, PanResponder, PropTypes, StyleSheet, View, Dimensions, TouchableWithoutFeedback } from 'react-native';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+
+const {
+  Animated,
+  Dimensions,
+  InteractionManager,
+  PanResponder,
+  PropTypes,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  View,
+} = React;
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -38,6 +48,8 @@ export default class DrawerLayout extends React.Component {
   constructor(props, context) {
     super(props, context);
 
+    this.interactionHandle = null;
+
     this.state = {
       openValue: new Animated.Value(0),
       drawerShown: false,
@@ -55,6 +67,14 @@ export default class DrawerLayout extends React.Component {
 
       if (this.props.keyboardDismissMode === 'on-drag') {
         dismissKeyboard();
+      }
+
+      if (value === 0 || value === 1) {
+        if (this.interactionHandle) {
+          InteractionManager.clearInteractionHandle(this.interactionHandle);
+        }
+      } else {
+        this.interactionHandle = InteractionManager.createInteractionHandle();
       }
 
       this._lastOpenValue = value;
