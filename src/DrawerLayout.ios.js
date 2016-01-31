@@ -40,6 +40,7 @@ export default class DrawerLayout extends React.Component {
 
     this.state = {
       openValue: new Animated.Value(0),
+      drawerShown: false,
     };
   }
 
@@ -47,6 +48,11 @@ export default class DrawerLayout extends React.Component {
     const { openValue } = this.state;
 
     openValue.addListener(({ value }) => {
+      const drawerShown = value > 0;
+      if (drawerShown !== this.state.drawerShown) {
+        this.setState({ drawerShown });
+      }
+
       if (this.props.keyboardDismissMode === 'on-drag') {
         dismissKeyboard();
       }
@@ -68,7 +74,7 @@ export default class DrawerLayout extends React.Component {
   }
 
   render() {
-    const { openValue } = this.state;
+    const { openValue, drawerShown } = this.state;
     const { drawerPosition, drawerWidth } = this.props;
     const dynamicDrawerStyles = {};
     dynamicDrawerStyles[drawerPosition] = 0;
@@ -89,7 +95,6 @@ export default class DrawerLayout extends React.Component {
       extrapolate: 'clamp',
     });
     const animatedDrawerStyles = { transform: [{ translateX: drawerTranslateX }] };
-    const drawerShown = openValue > 0;
 
     /* Overlay styles */
     const overlayOpacity = openValue.interpolate({
