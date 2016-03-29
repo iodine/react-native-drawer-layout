@@ -72,9 +72,12 @@ export default class DrawerLayout extends React.Component {
       if (value === 0 || value === 1) {
         if (this.interactionHandle) {
           InteractionManager.clearInteractionHandle(this.interactionHandle);
+          this.interactionHandle = undefined;
         }
       } else {
-        this.interactionHandle = InteractionManager.createInteractionHandle();
+        if (!this.interactionHandle) {
+          this.interactionHandle = InteractionManager.createInteractionHandle();
+        }
       }
 
       this._lastOpenValue = value;
