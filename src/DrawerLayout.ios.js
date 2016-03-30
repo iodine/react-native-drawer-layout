@@ -35,6 +35,7 @@ export default class DrawerLayout extends React.Component {
 
   static propTypes = {
     children: React.PropTypes.node,
+    drawerLockMode: PropTypes.oneOf(['unlocked', 'locked-closed', 'locked-open']),
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
     drawerWidth: PropTypes.number.isRequired,
     keyboardDismissMode: PropTypes.oneOf(['none', 'on-drag']),
@@ -146,7 +147,9 @@ export default class DrawerLayout extends React.Component {
   @autobind
   _onOverlayClick(e) {
     e.stopPropagation();
-    this.closeDrawer();
+    if (!this._isLockedClosed() && !this._isLockedOpen()) {
+      this.closeDrawer();
+    }
   }
 
   _emitStateChanged(newState) {
@@ -194,6 +197,10 @@ export default class DrawerLayout extends React.Component {
   @autobind
   _shouldSetPanResponder(e, { moveX, dx, dy }) {
     const { drawerPosition } = this.props;
+
+    if (this._isLockedClosed() || this._isLockedOpen()) {
+      return false;
+    }
 
     if (drawerPosition === 'left') {
       const overlayArea = DEVICE_WIDTH - (DEVICE_WIDTH - this.props.drawerWidth);
@@ -283,6 +290,14 @@ export default class DrawerLayout extends React.Component {
         this.closeDrawer();
       }
     }
+  }
+
+  _isLockedClosed() {
+    return this.props.drawerLockMode === 'locked-closed' && !this.state.drawerShown;
+  }
+
+  _isLockedOpen() {
+    return this.props.drawerLockMode === 'locked-open' && this.state.drawerShown;
   }
 
   _getOpenValueForX(x) {
