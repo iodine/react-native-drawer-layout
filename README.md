@@ -5,7 +5,9 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 ## Add it to your project
 
 1. Run `npm install react-native-drawer-layout --save`
-2. `var DrawerLayout = require('react-native-drawer-layout');`
+2. Import the component by using one of these:
+  - `var DrawerLayout = require('react-native-drawer-layout');`
+  - `import DrawerLayout from 'react-native-drawer-layout';`
 3. Follow the [DrawerLayoutAndroid](https://facebook.github.io/react-native/docs/drawerlayoutandroid.html#content) docs -- the API is the same.
 
 ## Demo
