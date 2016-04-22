@@ -1,5 +1,7 @@
 {
-  "extends": "react-native/packager/react-packager/.babelrc",
+  "presets": [
+    "react-native"
+  ],
   "plugins": [
     "transform-decorators-legacy"
   ],

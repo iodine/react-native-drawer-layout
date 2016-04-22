@@ -1,0 +1,4 @@
+--require react-native-mock/mock.js
+--require test/chai.js
+--compilers js:babel-core/register
+--recursive
