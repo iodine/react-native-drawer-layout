@@ -1,6 +1,7 @@
-import React from 'react-native';
+import React from 'react';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
+import ReactNative from 'react-native';
 
 const {
   Animated,
@@ -11,7 +12,7 @@ const {
   StyleSheet,
   TouchableWithoutFeedback,
   View,
-} = React;
+} = ReactNative;
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
