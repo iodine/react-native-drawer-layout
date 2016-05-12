@@ -102,7 +102,7 @@
     "eslint-plugin-no-empty-blocks": "0.0.2",
     "eslint-plugin-no-use-extend-native": "^0.3.3",
     "eslint-plugin-react": "^3.13.1",
-    "react-native": "^0.17.0",
+    "react-native": "^0.25.0",
     "xo": "^0.12.1"
   }
 }
