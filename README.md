@@ -16,9 +16,20 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 
 ## Support
 
-We currently support `react-native >= 0.11`, if you experience any restrictions, please let us know.
+| React Native Version      | react-native-dismiss-keyboard Version |
+|---------------------------|---------------------------------------|
+| >= 11 & < 23              | < 1.0                                 |
+| >= 23                     | >= 1.0                                |
+
+If you experience any restrictions with other versions, please let us know.
 
 ## Release Notes
+
+### 1.0
+
+#### Breaking changes:
+
+- This version may only be used with React Native >= 0.25
 
 ### 0.3
 

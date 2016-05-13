@@ -1,6 +1,6 @@
 {
   "name": "react-native-drawer-layout",
-  "version": "0.5.1",
+  "version": "1.0.0",
   "description": "A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and native implementation on Android. Why? Because the drawer layout is a useful component regardless of the platform! And if you can use it without changing any code, that's perfect.",
   "main": "dist/index.js",
   "scripts": {
@@ -90,7 +90,7 @@
   "license": "MIT",
   "dependencies": {
     "autobind-decorator": "^1.3.2",
-    "react-native-dismiss-keyboard": "0.0.2"
+    "react-native-dismiss-keyboard": "1.0.0"
   },
   "devDependencies": {
     "babel-cli": "^6.0.0",

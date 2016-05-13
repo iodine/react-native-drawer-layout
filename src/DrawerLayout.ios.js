@@ -8,11 +8,14 @@ const {
   Dimensions,
   InteractionManager,
   PanResponder,
-  PropTypes,
   StyleSheet,
   TouchableWithoutFeedback,
   View,
 } = ReactNative;
+
+const {
+  PropTypes,
+} = React;
 
 const DEVICE_WIDTH = parseFloat(Dimensions.get('window').width);
 const THRESHOLD = DEVICE_WIDTH / 2;
@@ -35,7 +38,7 @@ export default class DrawerLayout extends React.Component {
   };
 
   static propTypes = {
-    children: React.PropTypes.node,
+    children: PropTypes.node,
     drawerLockMode: PropTypes.oneOf(['unlocked', 'locked-closed', 'locked-open']),
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
     drawerWidth: PropTypes.number.isRequired,
