@@ -7,7 +7,7 @@
   },
   "dependencies": {
     "react": "^0.14.8",
-    "react-native": "^0.22.2",
+    "react-native": "^0.25.0",
     "react-native-drawer-layout": "file:.."
   }
 }

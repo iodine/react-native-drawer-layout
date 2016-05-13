@@ -1,6 +1,6 @@
 'use strict';
-
-var React = require('react-native');
+var React = require('react');
+var ReactNative = require('react-native');
 const {
   StyleSheet,
   Switch,
@@ -8,7 +8,7 @@ const {
   TextInput,
   TouchableHighlight,
   View,
-} = React;
+} = ReactNative;
 var DrawerLayout = require('react-native-drawer-layout');
 
 var DrawerLockModeSwitches = React.createClass({
