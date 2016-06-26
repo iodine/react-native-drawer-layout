@@ -1,4 +1,4 @@
-const React = require('react-native');
+const React = require('react');
 const { Platform, DrawerLayoutAndroid } = React;
 
 if (Platform.OS === 'android') {
