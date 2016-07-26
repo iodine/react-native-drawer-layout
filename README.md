@@ -14,6 +14,8 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 
 ![](https://raw.githubusercontent.com/iodine/react-native-drawer-layout/master/example.gif)
 
+To run the demo please run `npm install` in the `DrawerLayoutExample/` directory and start the demo up from there like any other React Native application.
+
 ## Support
 
 | React Native Version      | react-native-dismiss-keyboard Version |
