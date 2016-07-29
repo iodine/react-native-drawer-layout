@@ -1,7 +1,7 @@
 import React from 'react';
+import ReactNative from 'react-native';
 import autobind from 'autobind-decorator';
 import dismissKeyboard from 'react-native-dismiss-keyboard';
-import ReactNative from 'react-native';
 
 const {
   Animated,

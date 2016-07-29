@@ -1,5 +1,5 @@
-const React = require('react-native');
-const { Platform, DrawerLayoutAndroid } = React;
+const ReactNative = require('react-native');
+const { Platform, DrawerLayoutAndroid } = ReactNative;
 
 if (Platform.OS === 'android') {
   module.exports = DrawerLayoutAndroid;
