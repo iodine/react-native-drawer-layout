@@ -23,7 +23,11 @@ To run the demo please run `npm install` in the `DrawerLayoutExample/` directory
 | >= 11 & < 23              | < 1.0                                 |
 | >= 23                     | >= 1.0                                |
 
-If you experience any restrictions with other versions, please let us know.
+If you experience any further restrictions with other versions, please let us know.
+
+## Restrictions
+
+- Currently, there is no support for setting the status bar color in iOS. If you know any workaround, we would be glad to see an idea or a PR.
 
 ## Release Notes
 
