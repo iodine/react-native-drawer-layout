@@ -39,6 +39,7 @@ export default class DrawerLayout extends React.Component {
 
   static propTypes = {
     children: PropTypes.node,
+    drawerBackgroundColor: PropTypes.string,
     drawerLockMode: PropTypes.oneOf(['unlocked', 'locked-closed', 'locked-open']),
     drawerPosition: PropTypes.oneOf(['left', 'right']).isRequired,
     drawerWidth: PropTypes.number.isRequired,
@@ -48,6 +49,7 @@ export default class DrawerLayout extends React.Component {
     onDrawerSlide: PropTypes.func,
     onDrawerStateChanged: PropTypes.func,
     renderNavigationView: PropTypes.func.isRequired,
+    statusBarBackgroundColor: PropTypes.string,
   };
 
   constructor(props, context) {
@@ -100,9 +102,20 @@ export default class DrawerLayout extends React.Component {
   }
 
   render() {
-    const { openValue, drawerShown } = this.state;
-    const { drawerPosition, drawerWidth } = this.props;
-    const dynamicDrawerStyles = {};
+    const {
+      drawerShown,
+      openValue,
+    } = this.state;
+
+    const {
+      drawerBackgroundColor,
+      drawerPosition,
+      drawerWidth,
+    } = this.props;
+
+    const dynamicDrawerStyles = {
+      backgroundColor: drawerBackgroundColor,
+    };
     dynamicDrawerStyles[drawerPosition] = 0;
     dynamicDrawerStyles.width = drawerWidth;
 
