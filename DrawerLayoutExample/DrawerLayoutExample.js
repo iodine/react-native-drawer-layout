@@ -53,7 +53,7 @@ var DrawerLayoutExample = React.createClass({
     } = this.state;
 
     const navigationView = (
-      <View style={[styles.container, {backgroundColor: '#fff'}]}>
+      <View style={[styles.container]}>
         <Text>Hello there!</Text>
         <DrawerLockModeSwitches value={drawerLockMode} onValueChange={value => this.setState({drawerLockMode: value})} />
         <TouchableHighlight onPress={() => this.drawer.closeDrawer()}>
@@ -66,10 +66,12 @@ var DrawerLayoutExample = React.createClass({
       <DrawerLayout
         onDrawerSlide={(e) => this.setState({drawerSlideOutput: JSON.stringify(e.nativeEvent)})}
         onDrawerStateChanged={(e) => this.setState({drawerStateChangedOutput: JSON.stringify(e)})}
+        drawerBackgroundColor="red"
         drawerWidth={300}
         drawerLockMode={drawerLockMode}
         ref={(drawer) => { return this.drawer = drawer  }}
         keyboardDismissMode="on-drag"
+        statusBarBackgroundColor="blue"
         renderNavigationView={() => navigationView}>
         <View style={styles.container}>
           <Text style={styles.welcome}>Content!</Text>
