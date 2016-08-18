@@ -16,8 +16,8 @@ A platform-agnostic drawer layout. Pure JavaScript implementation on iOS and nat
 
 ## Examples
 
-- Normal usage
-- Heavy Load
+- [Normal usage](https://github.com/DanielMSchmidt/DrawerLayoutExample)
+- [Heavy Load](https://github.com/DanielMSchmidt/DrawerLayoutHeavyLoadExample)
 
 To run the demo please run `npm install` in the `DrawerLayoutExample/` directory and start the demo up from there like any other React Native application.
 
